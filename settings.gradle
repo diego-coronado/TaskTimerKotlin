@@ -1,0 +1,2 @@
+rootProject.name='Task Timer Kotlin'
+include ':app'
