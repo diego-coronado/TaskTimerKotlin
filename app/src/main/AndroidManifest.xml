@@ -19,6 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="com.diego_cor.tasktimerkotlin.AppProvider"
+            android:authorities="com.diego_cor.tasktimerkotlin.provider"
+            android:exported="false" />
     </application>
 
 </manifest>

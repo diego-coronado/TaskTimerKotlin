@@ -4,8 +4,8 @@ import android.content.ContentUris
 import android.net.Uri
 import android.provider.BaseColumns
 
-object TasksContract {
-    internal const val TABLE_NAME = "Tasks"
+object TimingsContract {
+    internal const val TABLE_NAME = "Timings"
 
     /*
     * The URI to access the Tasks table
@@ -15,12 +15,12 @@ object TasksContract {
     const val CONTENT_TYPE = "vnd.android.cursor.dir.vnd.$CONTENT_AUTHORITY.$TABLE_NAME"
     const val CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.$CONTENT_AUTHORITY.$TABLE_NAME"
 
-    //Tasks fields
+    //Timings fields
     object Columns {
         const val ID = BaseColumns._ID
-        const val TASK_NAME = "Name"
-        const val TASK_DESCRIPTION = "Description"
-        const val TASK_SORT_ORDER = "SortOrder"
+        const val TIMING_TASK_ID = "TaskId"
+        const val TIMING_START_TIME = "StartTime"
+        const val TIMING_DURATION = "Duration"
     }
 
     fun getId(uri: Uri): Long {

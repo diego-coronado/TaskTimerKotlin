@@ -2,7 +2,6 @@ package com.diego_cor.tasktimerkotlin
 
 import android.os.Bundle
 import android.util.Log
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -18,27 +17,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        val appDatabase = AppDatabase.getInstance(this)
-        val db = appDatabase.readableDatabase
-
-        val cursor = db.rawQuery("SELECT * FROM Tasks", null)
-        cursor.use{
-            while(it.moveToNext()){
-                with(cursor){
-                    val id = getLong(0)
-                    val name = getString(1)
-                    val description = getString(2)
-                    val sortOrder = getString(3)
-                    val result = "ID: $id. Name: $name description: $description sort order: $sortOrder"
-                    Log.d(TAG, "onCreate: reading data $result")
-                }
+        val projection = arrayOf(TasksContract.Columns.TASK_NAME, TasksContract.Columns.TASK_SORT_ORDER)
+        val sortColumn = TasksContract.Columns.TASK_SORT_ORDER
+        val cursor = contentResolver.query(TasksContract.CONTENT_URI, projection, null, null, sortColumn)
+        Log.d(TAG, "cursor $cursor")
+        cursor?.use {
+            while (it.moveToNext()) with(cursor) {
+                //val id = getLong(0)
+                val name = getString(0)
+                //val description = getString(2)
+                val sortOrder = getString(1)
+                val result =
+                    "Name: $name sort order: $sortOrder"
+                Log.d(TAG, "onCreate: reading data $result")
             }
         }
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
